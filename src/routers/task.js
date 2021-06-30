@@ -45,19 +45,6 @@ router.get('/tasks', auth, async (req, res) => {
     }
 })
 
-router.get('/tasks/:str', auth, async (req, res) => {
-    const str = req.params.str
-    try {
-        const task = await Task.find({owner: req.user._id })
-        if (!task) {
-            return res.status(404).send()
-        }
-        let filteredTasks = task.filter(task =>task.name.includes(str))
-        res.status(200).send(filteredTasks)
-    } catch (e) {
-        res.status(500).send(e)
-    }
-})
 router.get('/tasks/:id', auth, async (req, res) => {
     const _id = req.params.id
     try {
